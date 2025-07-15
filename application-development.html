@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Application Development - Fraction Consulting LLC</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="FC_logo_.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+      overflow-x: hidden;
+      cursor: none;
+    }
+    .cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 6px;
+      height: 6px;
+      background: #f88130;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+    .cursor-circle {
+      position: fixed;
+      top: 0; left: 0;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #153d5c;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9998;
+      transition: transform 0.1s ease-out;
+    }
+    .navbar {
+      transition: background 0.4s;
+    }
+    .navbar.scrolled {
+      background: rgba(34,34,34,0.95) !important;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      backdrop-filter: blur(8px);
+    }
+    .nav-item a {
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-item.dropdown:hover .dropdown-menu {
+      display: block;
+      margin-top: 0;
+    }
+    .dropdown-menu {
+      background: rgba(34,34,34,0.95);
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      max-width: 200px;
+    }
+    .dropdown-item {
+      color: #fff;
+      font-weight: 500;
+      transition: background 0.3s ease, color 0.3s ease;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+    .dropdown-item:hover {
+      background: #0066cc;
+      color: #fff;
+    }
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* animation: zoomInOut 12s ease-in-out infinite; */
+      z-index: 0;
+    }
+    /* @keyframes zoomInOut {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    } */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,51,102,0.6), rgba(0,102,204,0.4));
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 20px;
+    }
+    .hero h1 {
+      font-weight: 700;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      text-shadow: 0 3px 6px rgba(0,0,0,0.4);
+      animation: fadeInDown 1.2s ease-out;
+    }
+    .hero p {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      margin: 1.5rem auto;
+      max-width: 90%;
+      animation: fadeInUp 1.2s ease-out 0.5s;
+      animation-fill-mode: both;
+    }
+    /* Overview Section */
+    #overview {
+      padding: 6rem 0;
+      position: relative;
+      background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+      overflow: hidden;
+    }
+    #overview::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('AppDEV.jpg');
+      opacity: 0.1;
+      animation: waveMove 20s linear infinite;
+    }
+    @keyframes waveMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 200% 200%; }
+    }
+    #overview h2 {
+      font-weight: 700;
+      color: #003366;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 2rem;
+    }
+    #overview p {
+      color: #444;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* Offerings Section */
+    #offerings {
+      padding: 6rem 0;
+      background: url('AppDEV2.jpg') center/cover no-repeat fixed;
+      position: relative;
+    }
+    #offerings::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.511);
+    }
+    #offerings h2 {
+      font-weight: 700;
+      color: #003366;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 3rem;
+    }
+    .masonry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .offer-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .offer-card::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      z-index: -1;
+      border-radius: 17px;
+      background: linear-gradient(45deg, #143c5b, #0099ff);
+      animation: gradientGlow 5s ease infinite;
+      background-size: 200%;
+    }
+    @keyframes gradientGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .offer-card:hover {
+      transform: scale(1.05) translateY(-10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+    .offer-card i {
+      font-size: 2.5rem;
+      color: #fbfbfb;
+      margin-bottom: 1rem;
+      transition: transform 0.5s ease, color 0.5s ease;
+    }
+    .offer-card:hover i {
+      color: #ff6600;
+      transform: scale(1.1);
+      animation: pulse 0.5s ease infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1.1); }
+      to { transform: scale(1.2); }
+    }
+    .offer-card h5 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #aed5ff;
+      margin-bottom: 1rem;
+    }
+    .offer-card p {
+      font-size: 1rem;
+      color: #ffffff;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .offer-card ul {
+      list-style: none;
+      padding: 0;
+      color: #ffffff;
+    }
+    .offer-card ul li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .offer-card ul li::before {
+      content: '\f058';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: #ff6600;
+      font-size: 1rem;
+    }
+    /* Why Partner with Us Section */
+    #why-partner {
+      padding: 6rem 0;
+      background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+      position: relative;
+    }
+    #why-partner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.9);
+    }
+    #why-partner h2 {
+      font-weight: 700;
+      color: #003366;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 3rem;
+    }
+    .flip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .flip-card {
+      perspective: 1000px;
+      height: 300px;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .flip-card-front {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      color: #003366;
+    }
+    .flip-card-back {
+      background: linear-gradient(45deg, #ff6600, #0066cc);
+      color: #fff;
+      transform: rotateY(180deg);
+    }
+    .flip-card-front i {
+      font-size: 2.5rem;
+      color: #0066cc;
+      margin-bottom: 1rem;
+    }
+    .flip-card-front h5 {
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+    .flip-card-back p {
+      font-size: 1rem;
+      max-width: 100%;
+    }
+    /* CTA Section */
+    #cta {
+      padding: 4rem 0;
+      background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+      position: relative;
+      color: #fff;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,51,102,0.7), rgba(0,102,204,0.4));
+    }
+    #cta h2 {
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1rem;
+    }
+    #cta p {
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    #cta .btn-primary {
+      background: linear-gradient(90deg, #ff6600, #0066cc);
+      border: none;
+      padding: 14px 40px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta .btn-primary:hover {
+      background: linear-gradient(90deg, #e65c00, #0052a3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    /* Footer */
+    footer {
+      background: #111;
+      color: #bbb;
+    }
+    footer a {
+      color: #bbb;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: none;
+      z-index: 1000;
+      background: linear-gradient(90deg, #ff6600, #0066cc);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-to-top:hover {
+      background: linear-gradient(90deg, #e65c00, #0052a3);
+    }
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 60vh;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .offer-card {
+        min-height: 350px;
+      }
+      .flip-card {
+        height: 250px;
+      }
+    }
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .dropdown-menu {
+        max-width: 100%;
+      }
+      .offer-card {
+        min-height: 300px;
+        padding: 1.5rem;
+      }
+      .offer-card h5 {
+        font-size: 1.3rem;
+      }
+      .offer-card p, .offer-card ul li {
+        font-size: 0.9rem;
+      }
+      .flip-card {
+        height: 200px;
+      }
+      .flip-card-front h5 {
+        font-size: 1.2rem;
+      }
+      .flip-card-back p {
+        font-size: 0.9rem;
+      }
+    }
+    .heroLogo {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cursor Effects -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-circle"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand animate__animated animate__fadeInDown" href="index.html">
+        <img src="FC_logo_.png" alt="Fraction Consulting Logo" class="d-inline-block align-text-top heroLogo">
+        <span class="ms-2">
+          <strong>Fractional Consulting LLC</strong>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="AboutUs.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#services" id="servicesDropdown" role="button" aria-expanded="false">
+              Services
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+              <li><a class="dropdown-item" href="management-consulting.html">Management Consulting</a></li>
+              <li><a class="dropdown-item" href="platform-engineering.html">Platform Engineering</a></li>
+              <li><a class="dropdown-item" href="application-development.html">Application Development</a></li>
+              <li><a class="dropdown-item" href="staffing-talent.html">Staffing & Talent Solutions</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero text-center" id="hero">
+    <video autoplay muted loop playsinline>
+      <source src="ADBanner.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="container hero-content" data-aos="zoom-in" data-aos-duration="1200">
+      <h1 class="display-4 fw-bold">Application Development</h1>
+      <p class="lead my-4">Tailored Technology That Respects Your Vision and Empowers Your People</p>
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section class="py-5" id="overview" data-aos="fade-up" data-aos-duration="1000">
+    <div class="container">
+      <h2 class="text-center mb-4 fw-bold">Our Approach to Application Development</h2>
+      <p class="text-center" data-aos="fade-up" data-aos-delay="200">
+        At Fractional Consulting, we believe software should do more than just function—it should enable, inspire, and elevate the people who use it. Our custom application development services are built around a simple but powerful principle: technology should adapt to your business, not the other way around. Whether you are driving enterprise transformation, serving customers on the go, or unlocking operational efficiency, we craft thoughtful, secure, and human-centered digital solutions tailored to your unique needs.
+      </p>
+    </div>
+  </section>
+
+  <!-- What We Offer Section -->
+  <section class="py-5" id="offerings">
+    <div class="container" data-aos="fade-up" data-aos-delay="200">
+      <h2 class="text-center mb-5 fw-bold">What We Offer in Application Development</h2>
+      <div class="masonry-grid">
+        <div class="offer-card" data-aos="fade-up" data-aos-delay="300">
+          <i class="fa-solid fa-building"></i>
+          <h5>Enterprise Applications</h5>
+          <p>We design and build large-scale applications that serve as the digital backbone of your organization. From finance and HR to operations and logistics, our enterprise solutions are customized to reflect how your teams actually work, promoting collaboration, transparency, and growth.</p>
+          <ul>
+            <li>Department-spanning workflows and automation</li>
+            <li>Role-based access and data integrity</li>
+            <li>Scalable architectures designed for your future</li>
+          </ul>
+        </div>
+        <div class="offer-card" data-aos="fade-up" data-aos-delay="400">
+          <i class="fa-solid fa-mobile-alt"></i>
+          <h5>Mobile Applications</h5>
+          <p>In a mobile-first world, your teams and customers need access anywhere, anytime. We build elegant, responsive mobile apps for iOS and Android that enhance engagement, support remote productivity, and ensure secure connectivity so your workforce stays agile and your users stay connected.</p>
+          <ul>
+            <li>Intuitive UI/UX focused on real-world use</li>
+            <li>Integration with existing systems and data</li>
+            <li>Offline capabilities and cross-platform support</li>
+          </ul>
+        </div>
+        <div class="offer-card" data-aos="fade-up" data-aos-delay="500">
+          <i class="fa-solid fa-globe"></i>
+          <h5>Web Applications</h5>
+          <p>We develop high-performance, accessible web applications that are fast, reliable, and user-friendly across all devices. Whether it’s a customer portal, internal dashboard, or a custom e-commerce system, we ensure every solution is crafted with care and built to perform.</p>
+          <ul>
+            <li>Cloud-native, scalable architectures</li>
+            <li>Responsive design and intuitive interfaces</li>
+            <li>Secure, GDPR/ISO-compliant development practices</li>
+          </ul>
+        </div>
+        <div class="offer-card" data-aos="fade-up" data-aos-delay="600">
+          <i class="fa-solid fa-robot"></i>
+          <h5>Intelligent Automation Tools</h5>
+          <p>Manual tasks can drain time, energy, and focus. We build smart automation tools that liberate your teams from repetitive work so they can spend more time on what truly matters: innovation, service, and strategic growth.</p>
+          <ul>
+            <li>Workflow automation (approvals, data syncing, scheduling)</li>
+            <li>Custom bots for data entry, processing, or validation</li>
+            <li>Streamlined reporting, notification, and documentation tools</li>
+          </ul>
+        </div>
+        <div class="offer-card" data-aos="fade-up" data-aos-delay="700">
+          <i class="fa-solid fa-chart-line"></i>
+          <h5>Data Analytics & Reporting Solutions</h5>
+          <p>Every decision counts and data helps guide the way. Our analytics solutions transform your raw data into meaningful, real-time insights. With interactive dashboards and comprehensive reporting, your teams gain the clarity they need to make smart, timely decisions.</p>
+          <ul>
+            <li>Centralized data aggregation from multiple sources</li>
+            <li>Custom visual dashboards and KPI monitoring</li>
+            <li>Predictive analytics and trend recognition</li>
+          </ul>
+        </div>
+        <div class="offer-card" data-aos="fade-up" data-aos-delay="800">
+          <i class="fa-solid fa-link"></i>
+          <h5>System Integration Solutions</h5>
+          <p>Disconnected systems lead to frustration and inefficiency. We develop tailored integration solutions that bring your technology ecosystem together, ensuring your applications communicate smoothly, share data reliably, and support unified workflows.</p>
+          <ul>
+            <li>API-driven integration and middleware development</li>
+            <li>Legacy system modernization and data bridge creation</li>
+            <li>Improved data flow, consistency, and visibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Partner with Us Section -->
+  <section class="py-5" id="why-partner">
+    <div class="container" data-aos="fade-up" data-aos-duration="1000">
+      <h2 class="text-center mb-5 fw-bold">Why Partner with Us?</h2>
+      <div class="flip-grid">
+        <div class="flip-card" data-aos="flip-left" data-aos-delay="300">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-users"></i>
+              <h5>Human-First Design</h5>
+            </div>
+            <div class="flip-card-back">
+              <p>We start by listening to your people. Then we build technology that genuinely serves their needs.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" data-aos="flip-left" data-aos-delay="400">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-cogs"></i>
+              <h5>Strategic Customization</h5>
+            </div>
+            <div class="flip-card-back">
+              <p>No off-the-shelf shortcuts. Every application is built with your goals, culture, and workflows in mind.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" data-aos="flip-left" data-aos-delay="500">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-shield-alt"></i>
+              <h5>Secure & Scalable Solutions</h5>
+            </div>
+            <div class="flip-card-back">
+              <p>Built with enterprise-grade performance, compliance, and future growth in mind.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" data-aos="flip-left" data-aos-delay="600">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-handshake"></i>
+              <h5>Collaborative Development</h5>
+            </div>
+            <div class="flip-card-back">
+              <p>We work with your team every step of the way—openly, transparently, and respectfully.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" data-aos="flip-left" data-aos-delay="700">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-headset"></i>
+              <h5>End-to-End Support</h5>
+            </div>
+            <div class="flip-card-back">
+              <p>From ideation and prototyping to deployment and post-launch support, we’re with you all the way.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-5 text-center" id="cta" data-aos="fade-up" data-aos-duration="1000">
+    <div class="container">
+      <h2 class="mb-4 fw-bold">Let’s Build Solutions That Make a Difference</h2>
+      <p>
+        We don’t just develop applications—we help you create digital tools that uplift your organization, support your people, and move your mission forward. Contact us today to explore how our custom development services can empower your next chapter.
+      </p>
+      <a href="Contact.html" class="btn btn-primary btn-lg">Contact Us Today</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="pt-5 pb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Fraction Consulting</h5>
+          <p>Bridging technology and talent to drive your success.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Subscribe</h5>
+          <form class="d-flex">
+            <input class="form-control me-2 bg-dark border-secondary text-light" type="email" placeholder="Email">
+            <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="mt-3">
+            <a href="#" class="me-3"><i class="fab fa-facebook fa-lg"></i></a>
+            <a href="#" class="me-3"><i class="fab fa-twitter fa-lg"></i></a>
+            <a href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <small>© 2025 Fraction Consulting LLC. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="btn btn-primary back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+      document.querySelector('.back-to-top').style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    document.querySelector('.back-to-top').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    const dot = document.querySelector('.cursor-dot');
+    const circle = document.querySelector('.cursor-circle');
+    let mouseX = 0, mouseY = 0;
+    let circleX = 0, circleY = 0;
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      circleX += (mouseX - circleX) * 0.2;
+      circleY += (mouseY - circleY) * 0.2;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+    });
+    function animate() {
+      circleX += (mouseX - circleX) * 0.2;
+      circleY += (mouseY - circleY) * 0.2;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
