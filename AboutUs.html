@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us - Fraction Consulting</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="FC_logo_.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    /* Cursor Effects */
+    .cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 6px;
+      height: 6px;
+      background: #f88130;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+    .cursor-circle {
+      position: fixed;
+      top: 0; left: 0;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #153d5c;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9998;
+      transition: transform 0.1s ease-out;
+    }
+    .navbar.scrolled {
+      background: rgba(34,34,34,0.95) !important;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      backdrop-filter: blur(8px);
+    }
+    .nav-item a {
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+      /* Hero */
+    .hero-about {
+      min-height: 70vh;
+      background: url('AboutUs.webp') center/cover no-repeat;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-about::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 51, 102, 0.329), rgba(162,200,237,0.3));
+      z-index: 0;
+    }
+    .hero-about .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      animation: zoomInOut 10s ease-in-out infinite;
+      z-index: -1;
+    }
+    @keyframes zoomInOut {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+    .hero-about h1 {
+      font-weight: 700;
+      font-size: clamp(2.8rem, 6vw, 3.2rem);
+      z-index: 1;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.4);
+      animation: fadeInDown 1.2s ease-out;
+      letter-spacing: 1px;
+    }
+    .hero-about p {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      max-width: 650px;
+      margin: 1.5rem auto;
+      z-index: 1;
+      animation: fadeInUp 1.2s ease-out 0.6s;
+      animation-fill-mode: both;
+      line-height: 1.6;
+    }
+    /* Section Padding */
+    section {
+      padding: 4rem 0;
+      position: relative;
+    }
+    /* Intro Section */
+    .intro-section {
+      background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .intro-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .intro-text {
+      flex: 1;
+      min-width: 300px;
+      padding: 2rem;
+      background: rgba(255,255,255,0.95);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.5s ease;
+    }
+    .intro-text:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #143c5b 0%, #0099ff 100%);
+      color: #fff;
+    }
+    .intro-text:hover h3,
+    .intro-text:hover p {
+      color: #fff;
+    }
+    .intro-text h3 {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      color: #000;
+      transition: color 0.5s ease;
+    }
+    .intro-text h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #0066cc, #0099ff);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+    .intro-text:hover h3::after {
+      transform: translateX(0);
+    }
+    .intro-image {
+      flex: 1;
+      min-width: 300px;
+      height: 400px;
+      background: url('WhoWeAre.jpeg') center/cover no-repeat;
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.4s ease;
+    }
+    .intro-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 51, 102, 0.2), rgba(162,200,237,0.2));
+      transition: background 0.5s ease;
+    }
+    .intro-image:hover::before {
+      background: linear-gradient(135deg, rgba(0, 102, 204, 0.5), rgba(162,200,237,0.5));
+    }
+    .intro-image:hover {
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+    @media (max-width: 768px) {
+      .intro-content {
+        flex-direction: column;
+      }
+      .intro-image {
+        height: 250px;
+      }
+    }
+    /* Mission & Vision */
+    .mission-vision {
+      background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+      background-attachment: fixed;
+      position: relative;
+    }
+    .mission-vision::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.151);
+    }
+    .mission-vision-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      padding: 2.5rem;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      backdrop-filter: blur(5px);
+      height: 100%;
+    }
+    .mission-vision-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    .mission-vision-card i {
+      font-size: 3rem;
+      color: #0066cc;
+      margin-bottom: 1.5rem;
+      transition: color 0.3s ease;
+    }
+    .mission-vision-card:hover i {
+      color: #0099ff;
+    }
+    /* Core Values */
+    .core-value {
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      padding: 2.5rem;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      height: 100%;
+    }
+    .core-value:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    .core-value i {
+      font-size: 2.5rem;
+      color: #0066cc;
+      transition: color 0.3s ease;
+    }
+    .core-value:hover i {
+      color: #0099ff;
+    }
+    /* What Sets Us Apart */
+   .unique-section {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.unique-section video.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.5; /* Optional: adjust for readability */
+}
+    /* .unique-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.3);
+    } */
+    .unique-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      padding: 2.5rem;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      backdrop-filter: blur(5px);
+      height: 100%;
+    }
+    .unique-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    .unique-card i {
+      font-size: 2.5rem;
+      color: #0066cc;
+      transition: color 0.3s ease;
+    }
+    .unique-card:hover i {
+      color: #0099ff;
+    }
+    /* Timeline */
+    .timeline { position: relative; padding: 2rem 0; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 0;
+      width: 4px; height: 100%;
+      background: #dee2e6;
+      transform: translateX(-50%);
+    }
+    .timeline-item { position: relative; width: 50%; padding: 1rem 2rem; }
+    .timeline-item:nth-child(odd) { left: 0; }
+    .timeline-item:nth-child(even) { left: 50%; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 1.5rem;
+      width: 16px; height: 16px;
+      background: #007bff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px #f8f9fa;
+    }
+    .timeline-item:nth-child(odd)::before { right: -8px; }
+    .timeline-item:nth-child(even)::before { left: -8px; }
+    /* Why Choose Us */
+    .why-choose-us {
+      background: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+      position: relative;
+    }
+    .why-choose-us::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.21);
+    }
+    .service-box {
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      padding: 2.5rem;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      backdrop-filter: blur(5px);
+      height: 100%;
+    }
+    .service-box:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    .service-box i {
+      font-size: 2.5rem;
+      color: #0066cc;
+      transition: color 0.3s ease;
+    }
+    .service-box:hover i {
+      color: #0099ff;
+    }
+    /* Footer */
+    footer {
+      background: linear-gradient(180deg, #222, #1a1a1a);
+      color: #bbb;
+      padding-top: 5rem;
+    }
+    footer a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      display: none;
+      z-index: 1000;
+      background: linear-gradient(90deg, #0066cc, #0099ff);
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .back-to-top:hover {
+      background: linear-gradient(90deg, #0052a3, #0077cc);
+      transform: scale(1.1);
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-about {
+        min-height: 50vh;
+      }
+      .hero-about h2 {
+        font-size: 2.2rem;
+      }
+      .hero-about p {
+        font-size: 1.2rem;
+      }
+      .timeline::before {
+        left: 12px;
+      }
+      .timeline-item {
+        width: 85%;
+        left: 12% !important;
+        text-align: left !important;
+      }
+      .timeline-item::before {
+        left: -12px !important;
+        right: auto !important;
+      }
+      .section {
+        padding: 4rem 0;
+      }
+    }
+    .heroLogo {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cursor Effects -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-circle"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand animate__animated animate__fadeInDown" href="#">
+        <img src="FC_logo_.png" alt="Fraction Consulting Logo" class="d-inline-block align-text-top heroLogo">
+        <span class="ms-2">
+          <strong>Fraction Consulting LLC</strong>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-about" data-aos="fade-down" data-aos-duration="1200">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <h1 class="mt-5">Strategic Thinking. Scalable Technology. Human-Centric Innovation.</h1>
+      <p>Empowering organizations with clarity, agility, and purpose through fractional leadership, AI-powered solutions, and tailored digital services.</p>
+    </div>
+  </section>
+
+  <!-- Intro Section -->
+  <section class="intro-section" data-aos="fade-up" data-aos-duration="1000">
+    <div class="container">
+      <div class="intro-content">
+        <div class="intro-text" data-aos="fade-right" data-aos-delay="200">
+          <h3 class="mb-4 fw-bold">Who We Are</h3>
+          <p class="lead">At Fractional Consulting LLC, we help organizations evolve with clarity, agility, and purpose. We’re a modern consulting and technology partner that blends fractional executive leadership, AI-powered solutions, and tailored digital services to support companies that are building what’s next.</p>
+          <p>We believe great organizations are powered by people—and propelled by systems that work with them, not against them. That’s why everything we do is designed around your unique challenges, culture, and goals. Whether you're scaling a startup, modernizing legacy systems, or reshaping workforce strategy, we help you move forward with solutions that are as human as they are high-tech.</p>
+        </div>
+        <div class="intro-image" data-aos="fade-left" data-aos-delay="300"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founding Story Timeline -->
+  <section class="bg-light" data-aos="fade-up" data-aos-delay="200">
+    <div class="container">
+      <h3 class="text-center mb-5"><strong>Our Journey</strong></h3>
+      <div class="timeline">
+        <div class="timeline-item" data-aos="fade-right">
+          <h4><strong>2025</strong></h4>
+          <h5><strong>Scaling with Purpose</strong></h5>
+          <p>Strengthening global partnerships and building sustainable, inclusive solutions for the future of work.</p>
+        </div>
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="100">
+          <h4><strong>2024</strong></h4>
+          <h5><strong>AI with Integrity</strong></h5>
+          <p>Embedded ethical AI across all service lines, amplifying decision-making and automation.</p>
+        </div>
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="-all 200">
+          <h4><strong>2023</strong></h4>
+          <h5><strong>People-Powered Innovation</strong></h5>
+          <p>Expanded staffing solutions with AI-enhanced sourcing and cross-functional team delivery.</p>
+        </div>
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="300">
+          <h4><strong>2022</strong></h4>
+          <h5><strong>Engineering Growth</strong></h5>
+          <p>Launched platform engineering services to deliver scalable, developer-centric solutions.</p>
+        </div>
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
+          <h4><strong>2021</strong></h4>
+          <h5><strong>Expansion & Impact</strong></h5>
+          <p>Introduced custom application development to solve real-world business challenges at scale.</p>
+        </div>
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="300">
+          <h4><strong>2020</strong></h4>
+          <h5><strong>Resilience in Action</strong></h5>
+          <p>Helped clients navigate global uncertainty through adaptive consulting and agile transformation.</p>
+        </div>
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
+          <h4><strong>2019</strong></h4>
+          <h5><strong>Founded with Vision</strong></h5>
+          <p>Launched Fractional Consulting LLC to bridge strategy, technology, and human-centered leadership.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- What Sets Us Apart -->
+  <section class="unique-section text-center" data-aos="fade-up" data-aos-duration="1000">
+    <video class="background-video" autoplay muted loop playsinline>
+  <source src="ABSection.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+    <div class="container">
+      <h3 class="mb-5 fw-bold text-dark">What Sets Us Apart</h3>
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <div class="unique-card" data-aos="zoom-in" data-aos-delay="200">
+            <i class="fas fa-heart"></i>
+            <h5 class="mt-3">People-First, Always</h5>
+            <p>Whether we’re building platforms or placing talent, we lead with empathy. We listen before we act. We build around your team’s needs, culture, and pace ensuring every step we take together is grounded in trust.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="unique-card" data-aos="zoom-in" data-aos-delay="300">
+            <i class="fas fa-brain"></i>
+            <h5 class="mt-3">Innovation with Integrity</h5>
+            <p>We use AI and emerging technologies to enhance human decision-making not replace it. Our solutions are intelligent, ethical, and designed to make life easier, not more complicated.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="unique-card" data-aos="zoom-in" data-aos-delay="400">
+            <i class="fas fa-rocket"></i>
+            <h5 class="mt-3">Leadership That Scales With You</h5>
+            <p>Our fractional executives offer high-impact leadership exactly when and where you need it bringing clarity, momentum, and strategic depth without long-term commitments.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="unique-card" data-aos="zoom-in" data-aos-delay="500">
+            <i class="fas fa-cogs"></i>
+            <h5 class="mt-3">Solutions That Feel Right</h5>
+            <p>We create technology that fits naturally into your workflows and supports your goals from custom apps to automation tools and integrated cloud platforms.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="text-center bg-white mission-vision" data-aos="fade-up" data-aos-duration="1000">
+    <div class="container">
+      <h3 class="mb-5 fw-bold text-light">Our Purpose</h3>
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="mission-vision-card" data-aos="zoom-in" data-aos-delay="200">
+            <i class="fas fa-bullseye"></i>
+            <h4 class="mt-3"><strong>Our Mission</strong></h4>
+            <p>To help organizations build systems, teams, and strategies that honour people, uplift communities, and support sustainable growth because business success should feel as good as it looks.</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="mission-vision-card" data-aos="zoom-in" data-aos-delay="300">
+            <i class="fas fa-eye"></i>
+            <h4 class="mt-3"><strong>Our Vision</strong></h4>
+            <p>At Fractional Consulting LLC, we're more than consultants we're your collaborators, allies, and co-creators in progress. Let's build a future where technology supports humanity, not the other way around</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="text-center" data-aos="fade-up" data-aos-delay="400">
+    <div class="container">
+      <h3 class="mb-5 fw-bold">Core Values</h3>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="core-value" data-aos="bounce-in" data-aos-delay="300">
+            <i class="fas fa-handshake"></i>
+            <h5 class="mt-3">Client Obsession</h5>
+            <p>Your success is our success.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="core-value" data-aos="bounce-in" data-aos-delay="400">
+            <i class="fas fa-lightbulb"></i>
+            <h5 class="mt-3">Innovation at Core</h5>
+            <p>We lead with curiosity and creativity.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="core-value" data-aos="bounce-in" data-aos-delay="500">
+            <i class="fas fa-shield-alt"></i>
+            <h5 class="mt-3">Integrity</h5>
+            <p>Transparent, ethical, and accountable partnerships.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="core-value" data-aos="bounce-in" data-aos-delay="600">
+            <i class="fas fa-bolt"></i>
+            <h5 class="mt-3">Agility</h5>
+            <p>Fast, flexible, and forward-thinking solutions.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="core-value" data-aos="bounce-in" data-aos-delay="700">
+            <i class="fas fa-award"></i>
+            <h5 class="mt-3">Excellence</h5>
+            <p>Every deliverable. Every time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Why Choose Us -->
+  <section class="bg-white why-choose-us" data-aos="fade-up" data-aos-delay="600">
+    <div class="container text-center">
+      <h3 class="mb-5 fw-bold">Why Choose Fraction?</h3>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="service-box" data-aos="fade-up" data-aos-delay="300">
+            <i class="fas fa-thumbs-up"></i>
+            <h5 class="mt-3">Expertise On-Demand</h5>
+            <p>Access to top-tier IT professionals, vetted for excellence.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-box" data-aos="fade-up" data-aos-delay="400">
+            <i class="fas fa-sync-alt"></i>
+            <h5 class="mt-3">Agile Delivery</h5>
+            <p>Flexible teams adapting to your evolving project needs.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-box" data-aos="fade-up" data-aos-delay="500">
+            <i class="fas fa-award"></i>
+            <h5 class="mt-3">Guaranteed Outcomes</h5>
+            <p>Outcome-focused models ensuring ROI and client satisfaction.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="pt-5 pb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Fraction Consulting</h5>
+          <p>Bridging technology and talent to drive your success.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Subscribe</h5>
+          <form class="d-flex">
+            <input class="form-control me-2 bg-dark border-secondary text-light" type="email" placeholder="Email">
+            <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="mt-3">
+            <a href="#" class="me-3"><i class="fab fa-facebook fa-lg"></i></a>
+            <a href="#" class="me-3"><i class="fab fa-twitter fa-lg"></i></a>
+            <a href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <small>© 2025 Fraction Consulting LLC. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="btn btn-primary back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({ once: true, duration: 800 });
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+      document.querySelector('.back-to-top').style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    document.querySelector('.back-to-top').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Pointer effects
+    const dot = document.querySelector('.cursor-dot');
+    const circle = document.querySelector('.cursor-circle');
+    let mouseX = 0, mouseY = 0;
+    let circleX = 0, circleY = 0;
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      circleX += (mouseX - circleX) * 0.2;
+      circleY += (mouseY - circleY) * 0.2;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+    });
+    function animate() {
+      circleX += (mouseX - circleX) * 0.2;
+      circleY += (mouseY - circleY) * 0.2;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
