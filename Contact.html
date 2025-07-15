@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - Fraction Consulting</title>
+  <title>Contact Us - Fractional Consulting</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- AOS CSS -->
@@ -56,6 +56,28 @@
       color: #fff;
       font-weight: 500;
       transition: color 0.3s ease;
+    }
+     .nav-item.dropdown:hover .dropdown-menu {
+      display: block;
+      margin-top: 0;
+    }
+    .dropdown-menu {
+      background: rgba(34,34,34,0.95);
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      max-width: 200px;
+    }
+     .dropdown-item {
+      color: #fff;
+      font-weight: 500;
+      transition: background 0.3s ease, color 0.3s ease;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+    .dropdown-item:hover {
+      background: #0066cc;
+      color: #fff;
     }
     /* Hero Contact */
     .hero-contact {
@@ -321,6 +343,9 @@
         margin-top: 0;
         border-radius: 0;
       }
+      .dropdown-menu {
+        max-width: 100%;
+      }
       .contact-details {
         margin-top: 2rem;
       }
@@ -350,7 +375,7 @@
       <a class="navbar-brand animate__animated animate__fadeInDown" href="index.html">
         <img src="FC_logo_.png" alt="Fraction Consulting Logo" class="d-inline-block align-text-top heroLogo">
         <span class="ms-2">
-          <strong>Fraction Consulting LLC</strong>
+          <strong>Fractional Consulting LLC</strong>
         </span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -360,8 +385,18 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="AboutUs.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
-          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#services" id="servicesDropdown" role="button" aria-expanded="false">
+              Services
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+              <li><a class="dropdown-item" href="management-consulting.html">Management Consulting</a></li>
+              <li><a class="dropdown-item" href="platform-engineering.html">Platform Engineering</a></li>
+              <li><a class="dropdown-item" href="application-development.html">Application Development</a></li>
+              <li><a class="dropdown-item" href="staffing-talent.html">Staffing & Talent Solutions</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -401,7 +436,7 @@
         <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
           <div class="contact-details">
             <h3 class="mb-4 text-white fw-bold">Contact Details</h3>
-            <p><i class="fas fa-phone-alt me-3"></i>+1 (123) 456-7890</p>
+            <!-- <p><i class="fas fa-phone-alt me-3"></i>+1 (123) 456-7890</p> -->
             <p><i class="fas fa-envelope me-3"></i>info@fractionconsulting.com</p>
             <p><i class="fas fa-clock me-3"></i>Mon - Fri: 9am - 6pm (Local Office Hours)</p>
           </div>
@@ -419,23 +454,23 @@
           <div class="office-list">
             <div class="office-item" data-lat="21.0285" data-lng="105.8048" data-office="Vietnam">
               <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Vietnam - Development Center</h5>
-              <p>5F & 7F Golden Park, No.2 Pham Van Bach, Cau Giay, Hanoi, Vietnam</p>
+              <p>Hanoi, Vietnam</p>
             </div>
             <div class="office-item" data-lat="35.6729" data-lng="139.7660" data-office="Tokyo">
               <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Tokyo Office</h5>
-              <p>5F, Ginza Sky Building, 3-13-4 Ginza, Chuo-ku, Tokyo, Japan</p>
+              <p>Tokyo, Japan</p>
             </div>
             <div class="office-item" data-lat="1.2868" data-lng="103.8545" data-office="Singapore">
               <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Singapore Office</h5>
-              <p>30 Cecil Street, #19-08, Prudential Tower, Singapore 049712, UEN: 202413765D</p>
+              <p>Singapore</p>
             </div>
             <div class="office-item" data-lat="-33.8840" data-lng="151.2017" data-office="Sydney">
               <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Sydney Office</h5>
-              <p>81-83 Campbell Street Surry Hills, NSW 2010, Australia</p>
+              <p>Sydney - Australia</p>
             </div>
             <div class="office-item" data-lat="37.5172" data-lng="127.0473" data-office="Korea">
               <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Korea Office</h5>
-              <p>6th Floor, Iners Tower, 5 Teheran-ro 21-gil, Yeoksam-dong, Gangnam-gu, Seoul, South Korea</p>
+              <p>Seoul, South Korea</p>
             </div>
           </div>
         </div>
