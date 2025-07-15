@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Staffing & Talent Solutions - Fraction Consulting LLC</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="FC_logo_.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+      overflow-x: hidden;
+      cursor: none;
+    }
+    .cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 6px;
+      height: 6px;
+      background: #f88130;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+    .cursor-circle {
+      position: fixed;
+      top: 0; left: 0;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #153d5c;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9998;
+      transition: transform 0.1s ease-out;
+    }
+    .navbar {
+      transition: background 0.4s;
+    }
+    .navbar.scrolled {
+      background: rgba(34,34,34,0.95) !important;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      backdrop-filter: blur(8px);
+    }
+    .nav-item a {
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-item.dropdown:hover .dropdown-menu {
+      display: block;
+      margin-top: 0;
+    }
+    .dropdown-menu {
+      background: rgba(34,34,34,0.95);
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      max-width: 200px;
+    }
+    .dropdown-item {
+      color: #fff;
+      font-weight: 500;
+      transition: background 0.3s ease, color 0.3s ease;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+    .dropdown-item:hover {
+      background: #0066cc;
+      color: #fff;
+    }
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* animation: zoomInOut 12s ease-in-out infinite; */
+      z-index: 0;
+    }
+    /* @keyframes zoomInOut {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    } */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 51, 102, 0.363), rgba(0,102,204,0.4));
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 20px;
+    }
+    .hero h1 {
+      font-weight: 700;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      text-shadow: 0 3px 6px rgba(0,0,0,0.4);
+      animation: fadeInDown 1.2s ease-out;
+    }
+    .hero p {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      margin: 1.5rem auto;
+      max-width: 90%;
+      animation: fadeInUp 1.2s ease-out 0.5s;
+      animation-fill-mode: both;
+    }
+    /* Overview Section */
+    #overview {
+      padding: 6rem 0;
+      position: relative;
+      background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+      overflow: hidden;
+    }
+    #overview::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('startup.jpg');
+      opacity: 0.1;
+      animation: movePattern 30s linear infinite;
+    }
+    @keyframes movePattern {
+      0% { background-position: 0 0; }
+      100% { background-position: 100% 100%; }
+    }
+    #overview h2 {
+      font-weight: 700;
+      color: #003366;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 2rem;
+    }
+    #overview p {
+      color: #444;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* Offerings Section */
+    #offerings {
+      padding: 6rem 0;
+      background: url('city.jpg') center/cover no-repeat fixed;
+      position: relative;
+    }
+    #offerings::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.527);
+    }
+    #offerings h2 {
+      font-weight: 700;
+      color: #003366;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 3rem;
+    }
+    .accordion-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .accordion-item {
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .accordion-item::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      z-index: -1;
+      border-radius: 12px;
+      background: linear-gradient(45deg, #4A90E2, #F7B731); /* Updated gradient */
+      animation: gradientGlow 5s ease infinite;
+      background-size: 200%;
+    }
+    @keyframes gradientGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .accordion-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .accordion-header {
+      padding: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: #003366;
+    }
+    .accordion-header i {
+      font-size: 2rem;
+      color: #0066cc;
+      margin-right: 1rem;
+      transition: color 0.3s ease;
+    }
+    .accordion-header:hover i {
+      color: #F7B731; /* Match hover color to new gradient */
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 1.5rem;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .accordion-content.active {
+        min-height: 250px;
+      max-height: 700px;
+      padding: 1.5rem;
+    }
+    .accordion-content p {
+      font-size: 1rem;
+      color: #ffffff;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .accordion-content ul {
+      list-style: none;
+      padding: 0;
+      color: #ffffff;
+    }
+    .accordion-content ul li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .accordion-content ul li::before {
+      content: '\f058';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: #F7B731; /* Match bullet color to new gradient */
+      font-size: 1rem;
+    }
+    /* Staffing Models Section */
+    #staffing-models {
+      padding: 6rem 0;
+      background: url('startup.jpg') center/cover no-repeat fixed;
+      position: relative;
+    }
+    #staffing-models::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.712);
+    }
+    #staffing-models h2 {
+      font-weight: 700;
+      color: #003366;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 3rem;
+    }
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .tile-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      border: 2px solid transparent;
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tile-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+    .tile-card i {
+      font-size: 2.5rem;
+      color: #0066cc;
+      margin-bottom: 1rem;
+      transition: transform 0.5s ease, color 0.5s ease;
+    }
+    .tile-card:hover i {
+      color: #ff6600;
+      transform: scale(1.1);
+    }
+    .tile-card h5 {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #003366;
+      margin-bottom: 1rem;
+    }
+    .tile-card p {
+      font-size: 1rem;
+      color: #444;
+      flex-grow: 1;
+    }
+    .tile-card ul {
+      list-style: none;
+      padding: 0;
+      color: #444;
+    }
+    .tile-card ul li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .tile-card ul li::before {
+      content: '\f058';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: #ff6600;
+      font-size: 1rem;
+    }
+    /* Why Choose Us Section */
+    #why-choose {
+      padding: 6rem 0;
+      position: relative;
+      background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    }
+    #why-choose h2 {
+      font-weight: 700;
+      color: #003366;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 3rem;
+    }
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .spotlight-card {
+      background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(200,200,200,0.7) 100%);
+      border-radius: 50%;
+      width: 250px;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff6600, #0066cc);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: -1;
+    }
+    .spotlight-card:hover::before {
+      opacity: 0.2;
+    }
+    .spotlight-card:hover {
+      transform: rotate(10deg) scale(1.1);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+    .spotlight-card i {
+      font-size: 2rem;
+      color: #0066cc;
+      margin-bottom: 0.5rem;
+    }
+    .spotlight-card h5 {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #003366;
+      margin-bottom: 0.5rem;
+    }
+    .spotlight-card p {
+      font-size: 0.9rem;
+      color: #444;
+      max-width: 80%;
+    }
+    /* CTA Section */
+    #cta {
+      padding: 4rem 0;
+      background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+      position: relative;
+      color: #fff;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,51,102,0.7), rgba(0,102,204,0.4));
+    }
+    #cta h2 {
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1rem;
+    }
+    #cta p {
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    #cta .btn-primary {
+      background: linear-gradient(90deg, #ff6600, #0066cc);
+      border: none;
+      padding: 14px 40px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta .btn-primary:hover {
+      background: linear-gradient(90deg, #e65c00, #0052a3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    /* Footer */
+    footer {
+      background: #111;
+      color: #bbb;
+    }
+    footer a {
+      color: #bbb;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: none;
+      z-index: 1000;
+      background: linear-gradient(90deg, #ff6600, #0066cc);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-to-top:hover {
+      background: linear-gradient(90deg, #e65c00, #0052a3);
+    }
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 60vh;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .accordion-item {
+        margin-bottom: 0.5rem;
+      }
+      .tile-card {
+        min-height: 300px;
+      }
+      .spotlight-card {
+        width: 200px;
+        height: 200px;
+      }
+      .spotlight-card h5 {
+        font-size: 1rem;
+      }
+      .spotlight-card p {
+        font-size: 0.8rem;
+      }
+    }
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .dropdown-menu {
+        max-width: 100%;
+      }
+      .accordion-header {
+        font-size: 1.2rem;
+      }
+      .accordion-content p, .accordion-content ul li {
+        font-size: 0.9rem;
+      }
+      .tile-card {
+        min-height: 280px;
+      }
+      .tile-card h5 {
+        font-size: 1.2rem;
+      }
+      .tile-card p, .tile-card ul li {
+        font-size: 0.9rem;
+      }
+      .spotlight-card {
+        width: 180px;
+        height: 180px;
+      }
+    }
+    .heroLogo {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cursor Effects -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-circle"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand animate__animated animate__fadeInDown" href="index.html">
+        <img src="FC_logo_.png" alt="Fraction Consulting Logo" class="d-inline-block align-text-top heroLogo">
+        <span class="ms-2">
+          <strong>Fraction Consulting LLC</strong>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="AboutUs.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#services" id="servicesDropdown" role="button" aria-expanded="false">
+              Services
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+              <li><a class="dropdown-item" href="management-consulting.html">Management Consulting</a></li>
+              <li><a class="dropdown-item" href="platform-engineering.html">Platform Engineering</a></li>
+              <li><a class="dropdown-item" href="application-development.html">Application Development</a></li>
+              <li><a class="dropdown-item" href="staffing-talent.html">Staffing & Talent Solutions</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero text-center" id="hero">
+    <video autoplay muted loop playsinline>
+      <source src="StaffBanner.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="container hero-content" data-aos="zoom-in" data-aos-duration="1200">
+      <h1 class="display-4 fw-bold">Staffing & Talent Solutions</h1>
+      <p class="lead my-4">Building High-Impact Teams Through Purposeful Talent Solutions</p>
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section class="py-5" id="overview" data-aos="fade-up" data-aos-duration="1000">
+    <div class="container">
+      <h2 class="text-center mb-4 fw-bold">Our Approach to Staffing Solutions</h2>
+      <p class="text-center" data-aos="fade-up" data-aos-delay="200">
+        At Fractional Consulting LLC, we believe that great teams are built on purpose, alignment, and human connection. Our staffing and talent solutions go beyond filling roles—we focus on finding professionals who bring expertise, character, and cultural fit to drive your organization forward. Whether you’re scaling a startup, transforming an enterprise, or seeking visionary leadership, we deliver strategic, flexible, and profoundly human staffing solutions tailored to your unique needs.
+      </p>
+    </div>
+  </section>
+
+  <!-- What We Offer Section -->
+  <section class="py-5" id="offerings">
+    <div class="container" data-aos="fade-up" data-aos-delay="200">
+      <h2 class="text-center mb-5 fw-bold">What We Offer in Staffing Solutions</h2>
+      <div class="accordion-container">
+        <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+          <button class="accordion-header">
+            <i class="fa-solid fa-user-tie"></i>
+            Permanent Staffing
+          </button>
+          <div class="accordion-content">
+            <p>We help you make strategic long-term hires by connecting you with professionals who bring not only expertise but also purpose and alignment to your organization. We focus on skills, character, and cultural fit, ensuring your team grows stronger with every hire.</p>
+            <ul>
+              <li>Full-time professionals across industries and functions</li>
+              <li>Leadership and team member placements</li>
+              <li>Values-aligned recruitment for lasting success</li>
+            </ul>
+          </div>
+        </div>
+        <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
+          <button class="accordion-header">
+            <i class="fa-solid fa-file-contract"></i>
+            Contract Staffing
+          </button>
+          <div class="accordion-content">
+            <p>For time-sensitive projects, seasonal needs, or specialized roles, our contract staffing services offer speed, flexibility, and precision. You get immediate access to talent, without the long-term commitments helping you stay agile and responsive.</p>
+            <ul>
+              <li>Project-based professionals</li>
+              <li>Technical and non-technical contractors</li>
+              <li>Scalable staffing for dynamic business environments</li>
+            </ul>
+          </div>
+        </div>
+        <div class="accordion-item" data-aos="fade-up" data-aos-delay="500">
+          <button class="accordion-header">
+            <i class="fa-solid fa-handshake"></i>
+            Contract-to-Hire
+          </button>
+          <div class="accordion-content">
+            <p>Minimize hiring risks while maintaining momentum. Our contract-to-hire model lets you assess candidates on the job, ensuring they integrate smoothly and meet expectations before extending a permanent offer.</p>
+            <ul>
+              <li>Trial period for performance and cultural evaluation</li>
+              <li>Smooth transition from contract to permanent hire</li>
+              <li>Reduced attrition and stronger team alignment</li>
+            </ul>
+          </div>
+        </div>
+        <div class="accordion-item" data-aos="fade-up" data-aos-delay="600">
+          <button class="accordion-header">
+            <i class="fa-solid fa-briefcase"></i>
+            Executive Search
+          </button>
+          <div class="accordion-content">
+            <p>Leadership defines direction. We specialize in placing visionary leaders who inspire teams, drive change, and deliver impact. Our executive search process is discreet, comprehensive, and tailored to your strategic objectives.</p>
+            <ul>
+              <li>C-suite and senior leadership recruitment</li>
+              <li>Domain-specific executive talent (Tech, Product, AI, Finance)</li>
+              <li>Behavioural, strategic, and cultural alignment assessments</li>
+            </ul>
+          </div>
+        </div>
+        <div class="accordion-item" data-aos="fade-up" data-aos-delay="700">
+          <button class="accordion-header">
+            <i class="fa-solid fa-microchip"></i>
+            Technology & Specialized Talent
+          </button>
+          <div class="accordion-content">
+            <p>We connect you with top-tier technical professionals who are at the forefront of innovation. From AI/ML to cybersecurity, our talent pool is equipped to help you stay ahead in a competitive, ever-evolving digital landscape.</p>
+            <ul>
+              <li>AI/ML engineers, platform architects, and DevOps experts</li>
+              <li>Cloud, cybersecurity, and data specialists</li>
+              <li>Consultants and SMEs for emerging technologies</li>
+            </ul>
+          </div>
+        </div>
+        <div class="accordion-item" data-aos="fade-up" data-aos-delay="800">
+          <button class="accordion-header">
+            <i class="fa-solid fa-users-gear"></i>
+            Cross-Functional Teams
+          </button>
+          <div class="accordion-content">
+            <p>For complex projects and digital transformation initiatives, we assemble cohesive, outcome-driven teams across domains. Our cross-functional teams work in sync with your organization to deliver value collaboratively and efficiently.</p>
+            <ul>
+              <li>Blended teams of developers, designers, analysts & PMs</li>
+              <li>Agile-ready units integrated with your workflows</li>
+              <li>Custom team design based on project scope and goals</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Staffing Models Section -->
+  <section class="py-5" id="staffing-models">
+    <div class="container" data-aos="fade-up" data-aos-duration="1000">
+      <h2 class="text-center mb-5 fw-bold">Staffing Models We Offer</h2>
+      <div class="tile-grid">
+        <div class="tile-card" data-aos="zoom-in" data-aos-delay="300">
+          <i class="fa-solid fa-sitemap"></i>
+          <h5>Recruitment Process Outsourcing (RPO)</h5>
+          <p>With RPO, we act as an extension of your HR or TA team, managing part or all of your recruitment process. This model is ideal for organizations looking to scale efficiently without compromising on quality or brand integrity.</p>
+          <ul>
+            <li>End-to-end or modular recruitment support</li>
+            <li>Cost-effective and scalable hiring operations</li>
+            <li>Dedicated recruiters aligned with your culture and goals</li>
+          </ul>
+        </div>
+        <div class="tile-card" data-aos="zoom-in" data-aos-delay="400">
+          <i class="fa-solid fa-users"></i>
+          <h5>Staff Augmentation</h5>
+          <p>Staff augmentation allows you to enhance your existing workforce with highly skilled professionals for specific tasks or periods—perfect for ramping up quickly without long-term commitments.</p>
+          <ul>
+            <li>Fill skill gaps instantly</li>
+            <li>Onboard qualified experts to existing teams</li>
+            <li>Maintain control while scaling resources</li>
+          </ul>
+        </div>
+        <div class="tile-card" data-aos="zoom-in" data-aos-delay="500">
+          <i class="fa-solid fa-globe"></i>
+          <h5>Offshore & Nearshore Staffing</h5>
+          <p>Access global talent while maintaining cost-efficiency and operational continuity. We help you build remote teams that work as a natural extension of your core workforce, without compromising on collaboration or quality.</p>
+          <ul>
+            <li>Global delivery centers</li>
+            <li>24/7 coverage models</li>
+            <li>Seamless communication and integration</li>
+          </ul>
+        </div>
+        <div class="tile-card" data-aos="zoom-in" data-aos-delay="600">
+          <i class="fa-solid fa-rocket"></i>
+          <h5>On-Demand Project Staffing</h5>
+          <p>For startups or departments executing critical initiatives, we offer just-in-time staffing allowing you to quickly onboard vetted professionals and get projects moving without delay.</p>
+          <ul>
+            <li>Flexible timelines and rapid hiring</li>
+            <li>Ready-to-deploy technical and functional talent</li>
+            <li>Ideal for startups and time-sensitive launches</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="py-5" id="why-choose">
+    <div class="container" data-aos="fade-up" data-aos-duration="1000">
+      <h2 class="text-center mb-5 fw-bold">Why Choose Fractional Consulting LLC?</h2>
+      <div class="spotlight-grid">
+        <div class="spotlight-card" data-aos="zoom-in" data-aos-delay="300">
+          <i class="fa-solid fa-heart"></i>
+          <h5>Human-Centered Recruitment</h5>
+          <p>We prioritize empathy, culture-fit, and people’s aspirations—not just technical qualifications.</p>
+        </div>
+        <div class="spotlight-card" data-aos="zoom-in" data-aos-delay="400">
+          <i class="fa-solid fa-cogs"></i>
+          <h5>Tailored to You</h5>
+          <p>Every client is different. We listen deeply, learn your business, and deliver customized solutions.</p>
+        </div>
+        <div class="spotlight-card" data-aos="zoom-in" data-aos-delay="500">
+          <i class="fa-solid fa-expand"></i>
+          <h5>Scalable & Strategic</h5>
+          <p>From one role to an enterprise-wide RPO, we flex with your growth and needs.</p>
+        </div>
+        <div class="spotlight-card" data-aos="zoom-in" data-aos-delay="600">
+          <i class="fa-solid fa-briefcase"></i>
+          <h5>Industry-Focused Expertise</h5>
+          <p>We bring domain-specific insight across healthcare, tech, BFSI, retail, government, and more.</p>
+        </div>
+        <div class="spotlight-card" data-aos="zoom-in" data-aos-delay="700">
+          <i class="fa-solid fa-handshake"></i>
+          <h5>Ethical & Inclusive</h5>
+          <p>Diversity, equity, and integrity guide every placement we make.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-5 text-center" id="cta" data-aos="fade-up" data-aos-duration="1000">
+    <div class="container">
+      <h2 class="mb-4 fw-bold">Let’s Build Teams That Do More Than Work—They Inspire</h2>
+      <p>
+        Whether you’re scaling a startup, building a digital-first enterprise, or seeking transformational leadership, we are here to support your journey with staffing solutions that are strategic, flexible, and profoundly human. Connect with us to explore how we can help you build a workforce that drives lasting impact.
+      </p>
+      <a href="Contact.html" class="btn btn-primary btn-lg">Connect With Us</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="pt-5 pb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Fraction Consulting</h5>
+          <p>Bridging technology and talent to drive your success.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Subscribe</h5>
+          <form class="d-flex">
+            <input class="form-control me-2 bg-dark border-secondary text-light" type="email" placeholder="Email">
+            <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="mt-3">
+            <a href="#" class="me-3"><i class="fab fa-facebook fa-lg"></i></a>
+            <a href="#" class="me-3"><i class="fab fa-twitter fa-lg"></i></a>
+            <a href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <small>© 2025 Fraction Consulting LLC. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="btn btn-primary back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+      document.querySelector('.back-to-top').style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    document.querySelector('.back-to-top').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    // Accordion functionality
+    document.querySelectorAll('.accordion-header').forEach(button => {
+      button.addEventListener('click', () => {
+        const content = button.nextElementSibling;
+        const isActive = content.classList.contains('active');
+        document.querySelectorAll('.accordion-content').forEach(item => {
+          item.classList.remove('active');
+          item.style.maxHeight = null;
+          item.style.padding = '0 1.5rem';
+        });
+        if (!isActive) {
+          content.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.style.padding = '1.5rem';
+        }
+      });
+    });
+    const dot = document.querySelector('.cursor-dot');
+    const circle = document.querySelector('.cursor-circle');
+    let mouseX = 0, mouseY = 0;
+    let circleX = 0, circleY = 0;
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      circleX += (mouseX - circleX) * 0.2;
+      circleY += (mouseY - circleY) * 0.2;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+    });
+    function animate() {
+      circleX += (mouseX - circleX) * 0.2;
+      circleY += (mouseY - circleY) * 0.2;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
