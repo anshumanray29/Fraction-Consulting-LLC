@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Fraction Consulting</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="icon" href="FC_logo_.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+      cursor: none;
+    }
+    /* Cursor Effects */
+    .cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 6px;
+      height: 6px;
+      background: #f88130;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+    .cursor-circle {
+      position: fixed;
+      top: 0; left: 0;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #153d5c;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9998;
+      transition: transform 0.1s ease-out;
+    }
+    .navbar.scrolled {
+      background: rgba(34,34,34,0.95) !important;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .nav-item a {
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    /* Hero Contact */
+    .hero-contact {
+      min-height: 70vh;
+      background: url('ContactUsBanner.jpg') center/cover no-repeat;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-contact::after{
+       content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 51, 102, 0.329), rgba(162,200,237,0.3));
+      z-index: 0;
+    }
+    .hero-contact-bg {
+     position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      animation: zoomInOut 10s ease-in-out infinite;
+      z-index: -1;
+    }
+    @keyframes zoomInOut {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    .hero-contact::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,51,102,0.7), rgba(0,102,204,0.4));
+      z-index: 0;
+    }
+    .hero-contact h1, .hero-contact p {
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .hero-contact h1 {
+       font-weight: 700;
+      font-size: clamp(2.8rem, 6vw, 3.2rem);
+      z-index: 1;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.4);
+      animation: fadeInDown 1.2s ease-out;
+      letter-spacing: 1px;
+    }
+    .hero-contact p {
+       font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      max-width: 650px;
+      margin: 1.5rem auto;
+      z-index: 1;
+      animation: fadeInUp 1.2s ease-out 0.6s;
+      animation-fill-mode: both;
+      line-height: 1.6;
+    }
+    /* Contact Form */
+    #contact-form {
+      background: #fff;
+      padding: 3rem 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      margin-top: -4rem;
+      position: relative;
+      z-index: 2;
+    }
+    #contact-form .form-control {
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      padding: 12px;
+      transition: all 0.3s ease;
+    }
+    #contact-form .form-control:focus {
+      border-color: #0066cc;
+      box-shadow: 0 0 8px rgba(0,102,204,0.2);
+      background: #fff;
+    }
+    #contact-form .btn-primary {
+      background: linear-gradient(90deg, #0066cc, #0099ff);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    #contact-form .btn-primary:hover {
+      background: linear-gradient(90deg, #0052a3, #0077cc);
+      transform: translateY(-2px);
+    }
+    #contact-form .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.2);
+      transition: all 0.4s ease;
+    }
+    #contact-form .btn-primary:hover::after {
+      left: 100%;
+    }
+    .form-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background: #fff;
+      padding: 0 5px;
+      font-size: 0.9rem;
+      color: #0066cc;
+      transition: all 0.3s ease;
+    }
+    .form-group input:focus + label,
+    .form-group textarea:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+      top: -20px;
+      font-size: 0.8rem;
+      color: #003366;
+    }
+    .contact-details {
+      background: linear-gradient(135deg, #0066cc, #0099ff);
+      color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-details::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 40%);
+      animation: ripple 6s infinite;
+    }
+    .contact-details p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      animation: fadeInRight 1s ease-out;
+      animation-fill-mode: both;
+    }
+    .contact-details p:nth-child(2) { animation-delay: 0.2s; }
+    .contact-details p:nth-child(3) { animation-delay: 0.4s; }
+    .contact-details p:nth-child(4) { animation-delay: 0.6s; }
+    .contact-details i {
+      color: #fff;
+      font-size: 1.3rem;
+    }
+    /* Global Presence */
+    #branches {
+      padding: 4rem 0;
+      background: #fff;
+    }
+    .office-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .office-item {
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.95);
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .office-item:hover, .office-item.active {
+      background: linear-gradient(90deg, #143c5b, #0099ff);
+      color: #fff;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .office-item:hover h5, .office-item.active h5,
+    .office-item:hover p, .office-item.active p {
+      color: #fff;
+    }
+    .office-item h5 {
+      font-weight: 600;
+      color: #003366;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+    .office-item p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+    #map {
+      min-height: 650px;
+      max-height: 750px;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    .leaflet-marker-icon.active {
+      transform: scale(1.3);
+      transition: transform 0.3s ease;
+    }
+    /* Footer */
+    footer {
+      background: #111;
+      color: #bbb;
+    }
+    footer a {
+      color: #bbb;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: none;
+      z-index: 1000;
+      background: linear-gradient(90deg, #0066cc, #0099ff);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-to-top:hover {
+      background: linear-gradient(90deg, #0052a3, #0077cc);
+    }
+    @keyframes ripple {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+    @media (max-width: 768px) {
+      .hero-contact {
+        min-height: 50vh;
+      }
+      .hero-contact h1 {
+        font-size: 2.5rem;
+      }
+      #contact-form {
+        margin-top: 0;
+        border-radius: 0;
+      }
+      .contact-details {
+        margin-top: 2rem;
+      }
+      #map {
+        height: 300px;
+        margin-top: 2rem;
+      }
+      .office-list {
+        margin-bottom: 2rem;
+      }
+    }
+    .heroLogo {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cursor Effects -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-circle"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand animate__animated animate__fadeInDown" href="#">
+        <img src="FC_logo_.png" alt="Fraction Consulting Logo" class="d-inline-block align-text-top heroLogo">
+        <span class="ms-2">
+          <strong>Fraction Consulting LLC</strong>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="AboutUs.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Contact -->
+  <section class="hero-contact text-center" data-aos="fade-in" data-aos-duration="1200">
+    <div class="hero-contact-bg"></div>
+    <div class="container">
+      <h1 class="display-4">Connect With Us</h1>
+      <p class="lead">Reach out to our global team for tailored solutions and exceptional support.</p>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="py-5" id="contact-form">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
+          <h3 class="mb-4 text-dark fw-bold">Get in touch</h3>
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" id="name" placeholder="Enter your name">
+              <label for="name" class="form-label">Your Name</label>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" id="email" placeholder="name@example.com">
+              <label for="email" class="form-label">Your Email</label>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" id="message" rows="3" placeholder="Tell us how we can help..."></textarea>
+              <label for="message" class="form-label">Your Message</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
+          <div class="contact-details">
+            <h3 class="mb-4 text-white fw-bold">Contact Details</h3>
+            <p><i class="fas fa-phone-alt me-3"></i>+1 (123) 456-7890</p>
+            <p><i class="fas fa-envelope me-3"></i>info@fractionconsulting.com</p>
+            <p><i class="fas fa-clock me-3"></i>Mon - Fri: 9am - 6pm (Local Office Hours)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Branch Locations -->
+  <section class="py-5 bg-light" id="branches">
+    <div class="container">
+      <h3 class="text-center mb-5 text-dark fw-bold" data-aos="fade-up" data-aos-delay="200">Our Global Presence</h3>
+      <div class="row g-4">
+        <div class="col-lg-6" data-aos="fade-right" data-aos-delay="300">
+          <div class="office-list">
+            <div class="office-item" data-lat="21.0285" data-lng="105.8048" data-office="Vietnam">
+              <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Vietnam - Development Center</h5>
+              <p>5F & 7F Golden Park, No.2 Pham Van Bach, Cau Giay, Hanoi, Vietnam</p>
+            </div>
+            <div class="office-item" data-lat="35.6729" data-lng="139.7660" data-office="Tokyo">
+              <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Tokyo Office</h5>
+              <p>5F, Ginza Sky Building, 3-13-4 Ginza, Chuo-ku, Tokyo, Japan</p>
+            </div>
+            <div class="office-item" data-lat="1.2868" data-lng="103.8545" data-office="Singapore">
+              <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Singapore Office</h5>
+              <p>30 Cecil Street, #19-08, Prudential Tower, Singapore 049712, UEN: 202413765D</p>
+            </div>
+            <div class="office-item" data-lat="-33.8840" data-lng="151.2017" data-office="Sydney">
+              <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Sydney Office</h5>
+              <p>81-83 Campbell Street Surry Hills, NSW 2010, Australia</p>
+            </div>
+            <div class="office-item" data-lat="37.5172" data-lng="127.0473" data-office="Korea">
+              <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Korea Office</h5>
+              <p>6th Floor, Iners Tower, 5 Teheran-ro 21-gil, Yeoksam-dong, Gangnam-gu, Seoul, South Korea</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="pt-5 pb-3 text-center text-md-start">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <h5 class="text-white">Contact</h5>
+          <p><i class="fas fa-phone-alt me-2"></i>+1 (123) 456-7890</p>
+          <p><i class="fas fa-envelope me-2"></i>info@fractionconsulting.com</p>
+        </div>
+        <div class="col-md-6 text-md-end mb-3">
+          <a href="#" class="btn btn-outline-light">Back to Top</a>
+        </div>
+      </div>
+      <div class="text-center">
+        <small>© 2025 Fraction Consulting LLC. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="btn btn-primary back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+      document.querySelector('.back-to-top').style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    document.querySelector('.back-to-top').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Pointer effects
+    const dot = document.querySelector('.cursor-dot');
+    const circle = document.querySelector('.cursor-circle');
+    let mouseX = 0, mouseY = 0;
+    let circleX = 0, circleY = 0;
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      circleX += (mouseX - circleX) * 0.2;
+      circleY += (mouseY - circleY) * 0.2;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+    });
+    function animate() {
+      circleX += (mouseX - circleX) * 0.2;
+      circleY += (mouseY - circleY) * 0.2;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Interactive Map
+    const map = L.map('map').setView([20, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    const offices = [
+      { name: 'Vietnam', lat: 21.0285, lng: 105.8048, address: '5F & 7F Golden Park, No.2 Pham Van Bach, Cau Giay, Hanoi, Vietnam' },
+      { name: 'Tokyo', lat: 35.6729, lng: 139.7660, address: '5F, Ginza Sky Building, 3-13-4 Ginza, Chuo-ku, Tokyo, Japan' },
+      { name: 'Singapore', lat: 1.2868, lng: 103.8545, address: '30 Cecil Street, #19-08, Prudential Tower, Singapore 049712, UEN: 202413765D' },
+      { name: 'Sydney', lat: -33.8840, lng: 151.2017, address: '81-83 Campbell Street Surry Hills, NSW 2010, Australia' },
+      { name: 'Korea', lat: 37.5172, lng: 127.0473, address: '6th Floor, Iners Tower, 5 Teheran-ro 21-gil, Yeoksam-dong, Gangnam-gu, Seoul, South Korea' }
+    ];
+
+    const markers = {};
+    offices.forEach(office => {
+      const marker = L.marker([office.lat, office.lng], {
+        icon: L.divIcon({
+          className: 'leaflet-marker-icon',
+          html: `<div style="background: linear-gradient(90deg, #0066cc, #0099ff); width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0,0,0,0.3);"></div>`,
+          iconSize: [20, 20],
+          iconAnchor: [10, 10]
+        })
+      }).addTo(map).bindPopup(`<b>${office.name}</b><br>${office.address}`);
+      markers[office.name] = marker;
+    });
+
+    document.querySelectorAll('.office-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const office = item.getAttribute('data-office');
+        document.querySelectorAll('.office-item').forEach(el => el.classList.remove('active'));
+        item.classList.add('active');
+        const marker = markers[office];
+        map.setView([parseFloat(item.getAttribute('data-lat')), parseFloat(item.getAttribute('data-lng'))], 10);
+        marker.openPopup();
+        document.querySelectorAll('.leaflet-marker-icon').forEach(el => el.classList.remove('active'));
+        marker._icon.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
