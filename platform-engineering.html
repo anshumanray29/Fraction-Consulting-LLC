@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Platform Engineering - Fraction Consulting LLC</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+  <!-- Slick Carousel CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="FC_logo_.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+      overflow-x: hidden;
+      cursor: none;
+    }
+    .cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 6px;
+      height: 6px;
+      background: #f88130;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+    .cursor-circle {
+      position: fixed;
+      top: 0; left: 0;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #153d5c;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9998;
+      transition: transform 0.1s ease-out;
+    }
+    .navbar {
+      transition: background 0.4s;
+    }
+    .navbar.scrolled {
+      background: rgba(34,34,34,0.95) !important;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      backdrop-filter: blur(8px);
+    }
+    .nav-item a {
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-item.dropdown:hover .dropdown-menu {
+      display: block;
+      margin-top: 0;
+    }
+    .dropdown-menu {
+      background: rgba(34,34,34,0.95);
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      max-width: 200px;
+    }
+    .dropdown-item {
+      color: #fff;
+      font-weight: 500;
+      transition: background 0.3s ease, color 0.3s ease;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+    .dropdown-item:hover {
+      background: #0066cc;
+      color: #fff;
+    }
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* animation: zoomInOut 12s ease-in-out infinite; */
+      z-index: 0;
+    }
+    /* @keyframes zoomInOut {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    } */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,51,102,0.6), rgba(0,102,204,0.4));
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 20px;
+    }
+    .hero h1 {
+      font-weight: 700;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      text-shadow: 0 3px 6px rgba(0,0,0,0.4);
+      animation: fadeInDown 1.2s ease-out;
+    }
+    .hero p {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      margin: 1.5rem auto;
+      max-width: 90%;
+      animation: fadeInUp 1.2s ease-out 0.5s;
+      animation-fill-mode: both;
+    }
+    /* Overview Section */
+    #overview {
+      padding: 6rem 0;
+      position: relative;
+      background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+      overflow: hidden;
+    }
+    #overview::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/cubes.png');
+      opacity: 0.1;
+      animation: moveParticles 30s linear infinite;
+    }
+    @keyframes moveParticles {
+      0% { background-position: 0 0; }
+      100% { background-position: 100% 100%; }
+    }
+    #overview h2 {
+      font-weight: 700;
+      color: #003366;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 2rem;
+    }
+    #overview p {
+      color: #444;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* Offerings Section */
+    #offerings {
+      padding: 6rem 0;
+      background: url('PISection.jpg') center/cover no-repeat fixed;
+      position: relative;
+    }
+    #offerings::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.448);
+    }
+    #offerings h2 {
+      font-weight: 700;
+      color: #003366;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 3rem;
+    }
+    .staggered-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .offer-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+      position: relative;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      max-width: 600px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+    .offer-card::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      z-index: -1;
+      border-radius: 17px;
+      background: linear-gradient(45deg, #ff6600, #0066cc);
+      animation: gradientGlow 5s ease infinite;
+      background-size: 200%;
+    }
+    @keyframes gradientGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .offer-card:hover {
+      transform: scale(1.05) translateY(-10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+    .offer-card:nth-child(odd) {
+      margin-left: 10%;
+    }
+    .offer-card:nth-child(even) {
+      margin-left: 40%;
+    }
+    .offer-card i {
+      font-size: 2.5rem;
+      color: #0066cc;
+      margin-bottom: 1rem;
+      transition: transform 0.5s ease, color 0.5s ease;
+    }
+    .offer-card:hover i {
+      color: #ff6600;
+      transform: scale(1.1) translateY(-5px);
+      animation: bounce 0.5s ease infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: scale(1.1) translateY(-5px); }
+      to { transform: scale(1.1) translateY(0); }
+    }
+    .offer-card h5 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #003366;
+      margin-bottom: 1rem;
+    }
+    .offer-card p {
+      font-size: 1rem;
+      color: #ffffff;
+      line-height: 1.6;
+      max-width: 100%;
+    }
+    .offer-card ul {
+      list-style: none;
+      padding: 0;
+      color: #ffffff;
+    }
+    .offer-card ul li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .offer-card ul li::before {
+      content: '\f058';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: #ff6600;
+      font-size: 1rem;
+    }
+    /* Why Work With Us Section */
+    #why-work-with-us {
+      padding: 6rem 0;
+      background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+      position: relative;
+    }
+    #why-work-with-us::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.514);
+    }
+    #why-work-with-us h2 {
+      font-weight: 700;
+      color: #003366;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 3rem;
+    }
+    .feature-carousel .feature-panel {
+      background: rgba(255, 255, 255, 0.721);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.5s ease;
+      max-width: 400px;
+      margin: 0 auto;
+      margin-left: 20px;
+    }
+    .feature-panel{
+        min-height: 300px;
+        max-height: 450px;   
+    }
+    .feature-carousel .feature-panel:hover {
+      background: rgb(255, 255, 255);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+    .feature-panel i {
+      font-size: 2.5rem;
+      color: #0066cc;
+      margin-bottom: 1rem;
+    }
+    .feature-panel h5 {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #003366;
+      margin-bottom: 0.5rem;
+    }
+    .feature-panel p {
+      font-size: 1rem;
+      color: #444;
+      max-width: 100%;
+    }
+    .slick-slide {
+      margin: 0 15px;
+    }
+    /* Who We Serve Section */
+    #who-we-serve {
+      padding: 4rem 0;
+      background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    }
+    #who-we-serve h2 {
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 2rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.9);
+      border-radius: 25px;
+      margin: 0.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 200px;
+    }
+    .badge:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .badge i {
+      font-size: 1.5rem;
+      color: #0066cc;
+      margin-bottom: 0.5rem;
+    }
+    .badge span {
+      font-size: 0.8rem;
+      color: #003366;
+      font-weight: 600;
+    }
+    /* CTA Section */
+    #cta {
+      padding: 4rem 0;
+      background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+      position: relative;
+      color: #fff;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,51,102,0.7), rgba(0,102,204,0.4));
+    }
+    #cta h2 {
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1rem;
+    }
+    #cta p {
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    #cta .btn-primary {
+      background: linear-gradient(90deg, #ff6600, #0066cc);
+      border: none;
+      padding: 14px 40px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta .btn-primary:hover {
+      background: linear-gradient(90deg, #e65c00, #0052a3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    /* Footer */
+    footer {
+      background: #111;
+      color: #bbb;
+    }
+    footer a {
+      color: #bbb;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: none;
+      z-index: 1000;
+      background: linear-gradient(90deg, #ff6600, #0066cc);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-to-top:hover {
+      background: linear-gradient(90deg, #e65c00, #0052a3);
+    }
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 60vh;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .offer-card {
+        margin-left: 0 !important;
+        max-width: 100%;
+      }
+      .offer-card:nth-child(even) {
+        margin-left: 0;
+      }
+      .feature-carousel .feature-panel {
+        padding: 1.5rem;
+      }
+      .badge {
+        max-width: 150px;
+        padding: 0.8rem 1.5rem;
+      }
+    }
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .dropdown-menu {
+        max-width: 100%;
+      }
+      .offer-card {
+        padding: 1.5rem;
+      }
+      .offer-card h5 {
+        font-size: 1.3rem;
+      }
+      .offer-card p, .offer-card ul li {
+        font-size: 0.9rem;
+      }
+    }
+    .heroLogo {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cursor Effects -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-circle"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand animate__animated animate__fadeInDown" href="Home.html">
+        <img src="FC_logo_.png" alt="Fraction Consulting Logo" class="d-inline-block align-text-top heroLogo">
+        <span class="ms-2">
+          <strong>Fraction Consulting LLC</strong>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="Home.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="AboutUs.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#services" id="servicesDropdown" role="button" aria-expanded="false">
+              Services
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+              <li><a class="dropdown-item" href="management-consulting.html">Management Consulting</a></li>
+              <li><a class="dropdown-item" href="platform-engineering.html">Platform Engineering</a></li>
+              <li><a class="dropdown-item" href="application-development.html">Application Development</a></li>
+              <li><a class="dropdown-item" href="staffing-talent.html">Staffing & Talent Solutions</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero text-center" id="hero">
+    <video autoplay muted loop playsinline>
+      <source src="PI.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="container hero-content" data-aos="zoom-in" data-aos-duration="1200">
+      <h1 class="display-4 fw-bold">Platform Engineering</h1>
+      <p class="lead my-4">Building Scalable Platforms Where People and AI Work in Harmony</p>
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section class="py-5" id="overview" data-aos="fade-up" data-aos-duration="1000">
+    <div class="container">
+      <h2 class="text-center mb-4 fw-bold">Our Approach to Platform Engineering</h2>
+      <p class="text-center" data-aos="fade-up" data-aos-delay="200">
+        At Fractional Consulting LLC, we don’t just build platforms—we build relationships. Every line of code we write, every system we design, is meant to support the people who depend on it. Our platform engineering services focus on creating resilient, scalable, and human-centric solutions that empower your team and align with your vision.
+      </p>
+    </div>
+  </section>
+
+  <!-- What We Offer Section -->
+  <section class="py-5" id="offerings">
+    <div class="container" data-aos="fade-up" data-aos-delay="200">
+      <h2 class="text-center mb-5 fw-bold">What We Offer in Platform Engineering</h2>
+      <div class="staggered-grid">
+        <div class="offer-card" data-aos="fade-right" data-aos-delay="300">
+          <i class="fa-solid fa-sitemap"></i>
+          <h5>Thoughtful Platform Architecture</h5>
+          <p>Behind every great platform is a strong, flexible architecture. We don’t believe in one-size-fits-all. Our team listens first then builds systems that are resilient, scalable, and aligned with your people and purpose.</p>
+          <ul>
+            <li>Designed for real-world change and growth</li>
+            <li>Built with your team’s comfort and clarity in mind</li>
+            <li>Secure and future-ready from day one</li>
+          </ul>
+        </div>
+        <div class="offer-card" data-aos="fade-left" data-aos-delay="400">
+          <i class="fa-solid fa-laptop-code"></i>
+          <h5>A Better Developer Experience</h5>
+          <p>Happy developers build better products. We create platforms that remove friction, encourage autonomy, and give your engineering teams the tools and freedom to do their best work.</p>
+          <ul>
+            <li>Self-service portals for faster onboarding</li>
+            <li>Smooth CI/CD pipelines that feel intuitive</li>
+            <li>Integrated tools your team actually enjoys using</li>
+          </ul>
+        </div>
+        <div class="offer-card" data-aos="fade-right" data-aos-delay="500">
+          <i class="fa-solid fa-cogs"></i>
+          <h5>Infrastructure Automation</h5>
+          <p>We take the manual toil out of infrastructure so your team can focus on innovation. Our automation practices bring reliability, predictability, and peace of mind.</p>
+          <ul>
+            <li>Infrastructure as Code that adapts with you</li>
+            <li>Automated compliance, secrets, and policies</li>
+            <li>Environments that are always just a click away</li>
+          </ul>
+        </div>
+        <div class="offer-card" data-aos="fade-left" data-aos-delay="600">
+          <i class="fa-solid fa-cubes"></i>
+          <h5>Containers & Kubernetes</h5>
+          <p>We simplify the complex world of Kubernetes so your team doesn’t get overwhelmed. From setup to scaling, we walk with you every step of the way.</p>
+          <ul>
+            <li>Simplified orchestration and container management</li>
+            <li>Built-in observability and security</li>
+            <li>High availability without the high stress</li>
+          </ul>
+        </div>
+        <div class="offer-card" data-aos="fade-right" data-aos-delay="700">
+          <i class="fa-solid fa-eye"></i>
+          <h5>Observability Rooted in Empathy</h5>
+          <p>We believe monitoring should help teams, not burden them. Our observability solutions focus on actionable insight, calm operations, and learning from incidents—not blaming.</p>
+          <ul>
+            <li>End-to-end visibility without the noise</li>
+            <li>SRE principles that prioritize resilience</li>
+            <li>Tools that help you grow through every challenge</li>
+          </ul>
+        </div>
+        <div class="offer-card" data-aos="fade-left" data-aos-delay="800">
+          <i class="fa-solid fa-cloud"></i>
+          <h5>Cloud Platforms with a Human Touch</h5>
+          <p>Whether you're on AWS, Azure, or GCP—or still deciding—we help you build cloud platforms that align with your team’s strengths and your company’s values.</p>
+          <ul>
+            <li>Security that protects without disrupting</li>
+            <li>Cost optimization that respects your budget</li>
+            <li>Cloud-native practices that reduce complexity</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Work With Us Section -->
+  <section class="py-5" id="why-work-with-us">
+    <div class="container" data-aos="fade-up" data-aos-duration="1000">
+      <h2 class="text-center mb-5 fw-bold">Why Work With Us</h2>
+      <div class="feature-carousel">
+        <div class="feature-panel" data-aos="slide-right" data-aos-delay="300">
+          <i class="fa-solid fa-ear-listen"></i>
+          <h5>We Listen Deeply</h5>
+          <p>Your people are our starting point. We build platforms that truly serve their needs.</p>
+        </div>
+        <div class="feature-panel" data-aos="slide-right" data-aos-delay="400">
+          <i class="fa-solid fa-shield-alt"></i>
+          <h5>We Build Responsibly</h5>
+          <p>With empathy, ethics, and engineering excellence at the core.</p>
+        </div>
+        <div class="feature-panel" data-aos="slide-right" data-aos-delay="500">
+          <i class="fa-solid fa-seedling"></i>
+          <h5>We Think Long-Term</h5>
+          <p>Platforms are ecosystems, and we help you grow them sustainably.</p>
+        </div>
+        <div class="feature-panel" data-aos="slide-right" data-aos-delay="600">
+          <i class="fa-solid fa-hand-holding-heart"></i>
+          <h5>We’re With You Always</h5>
+          <p>From architecture to production support, we never leave you hanging.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who We Serve Section -->
+  <section class="py-5" id="who-we-serve">
+    <div class="container" data-aos="fade-up" data-aos-duration="1000">
+      <h2 class="text-center mb-4 fw-bold">Who We Serve</h2>
+      <p class="text-center mb-4" data-aos="fade-up" data-aos-delay="200">
+        We have walked alongside startups, non-profits, Fortune 500s, and mission-driven teams. No matter your size, if you care about your people, we will care about you.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="badge" data-aos="zoom-in" data-aos-delay="300">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Education & EdTech</span>
+        </div>
+        <div class="badge" data-aos="zoom-in" data-aos-delay="350">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>Health & Wellness</span>
+        </div>
+        <div class="badge" data-aos="zoom-in" data-aos-delay="400">
+          <i class="fa-solid fa-landmark"></i>
+          <span>Public Service</span>
+        </div>
+        <div class="badge" data-aos="zoom-in" data-aos-delay="450">
+          <i class="fa-solid fa-coins"></i>
+          <span>Fintech & Insurance</span>
+        </div>
+        <div class="badge" data-aos="zoom-in" data-aos-delay="500">
+          <i class="fa-solid fa-rocket"></i>
+          <span>Tech Startups & SaaS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-5 text-center" id="cta" data-aos="fade-up" data-aos-duration="1000">
+    <div class="container">
+      <h2 class="mb-4 fw-bold">Let’s Build Something Meaningful</h2>
+      <p>
+        Whether you’re scaling fast, launching something bold, or simply want to make your developers’ lives better—we’re here to help you build a platform that puts people first and technology second to none. Reach out to start the conversation. Let’s create a foundation where your team and your vision can truly thrive.
+      </p>
+      <a href="Contact.html" class="btn btn-primary btn-lg">Start the Conversation</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="pt-5 pb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Fraction Consulting</h5>
+          <p>Bridging technology and talent to drive your success.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5 class="text-white">Subscribe</h5>
+          <form class="d-flex">
+            <input class="form-control me-2 bg-dark border-secondary text-light" type="email" placeholder="Email">
+            <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="mt-3">
+            <a href="#" class="me-3"><i class="fab fa-facebook fa-lg"></i></a>
+            <a href="#" class="me-3"><i class="fab fa-twitter fa-lg"></i></a>
+            <a href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <small>© 2025 Fraction Consulting LLC. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="btn btn-primary back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+      document.querySelector('.back-to-top').style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    document.querySelector('.back-to-top').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    $(document).ready(function(){
+      $('.feature-carousel').slick({
+        slidesToShow: 2,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: true,
+        dots: true,
+        responsive: [
+          { breakpoint: 768, settings: { slidesToShow: 1 } }
+        ]
+      });
+    });
+    const dot = document.querySelector('.cursor-dot');
+    const circle = document.querySelector('.cursor-circle');
+    let mouseX = 0, mouseY = 0;
+    let circleX = 0, circleY = 0;
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      circleX += (mouseX - circleX) * 0.2;
+      circleY += (mouseY - circleY) * 0.2;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+    });
+    function animate() {
+      circleX += (mouseX - circleX) * 0.2;
+      circleY += (mouseY - circleY) * 0.2;
+      circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
