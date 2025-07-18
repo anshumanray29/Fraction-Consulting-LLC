@@ -24,36 +24,14 @@
       scroll-behavior: smooth;
       background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
       overflow-x: hidden;
-      cursor: none;
+      
     }
-    .cursor-dot {
-      position: fixed;
-      top: 0; left: 0;
-      width: 6px;
-      height: 6px;
-      background: #f88130;
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-    }
-    .cursor-circle {
-      position: fixed;
-      top: 0; left: 0;
-      width: 40px;
-      height: 40px;
-      border: 2px solid #153d5c;
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 9998;
-      transition: transform 0.1s ease-out;
-    }
+    
     .navbar {
       transition: background 0.4s;
     }
     .navbar.scrolled {
-      background: rgba(34,34,34,0.95) !important;
+      background: linear-gradient(135deg, rgba(0,51,102,0.5), rgba(4, 31, 53, 0.95)); 
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       backdrop-filter: blur(8px);
     }
@@ -404,7 +382,7 @@
     }
     /* Footer */
     footer {
-      background: #111;
+      background: linear-gradient(135deg, rgba(0,51,102,0.5), rgba(4, 31, 53, 0.95));
       color: #bbb;
     }
     footer a {
@@ -467,9 +445,7 @@
   </style>
 </head>
 <body>
-  <!-- Cursor Effects -->
-  <div class="cursor-dot"></div>
-  <div class="cursor-circle"></div>
+
 
   <!-- Navbar -->
  <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="mainNav">
@@ -494,8 +470,8 @@
             <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
               <li><a class="dropdown-item" href="management-consulting.html">Management Consulting</a></li>
               <li><a class="dropdown-item" href="platform-engineering.html">Platform Engineering</a></li>
-              <li><a class="dropdown-item" href="application-development.html">Application Development</a></li>
-              <li><a class="dropdown-item" href="staffing-talent.html">Staffing & Talent Solutions</a></li>
+              <li><a class="dropdown-item" href="application-development.html">Software & Cloud Engineering</a></li>
+              <li><a class="dropdown-item" href="staffing-talent.html">Talent Management</a></li>
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
@@ -570,8 +546,8 @@
             <div class="card service-card h-100 text-center">
               <div class="card-body">
                 <i class="fa-solid fa-code fs-1 mb-3"></i>
-                <h5 class="card-title">Application Development</h5>
-                <p class="card-text">Tailored Digital Solutions That Serve People—Intelligently</p>
+                <h5 class="card-title">Software & Cloud Engineering</h5>
+                <p class="card-text">From Code to Cloud We Build, Deploy, and Scale.</p>
               </div>
             </div>
           </a>
@@ -581,8 +557,8 @@
             <div class="card service-card h-100 text-center">
               <div class="card-body">
                 <i class="fa-solid fa-users fs-1 mb-3"></i>
-                <h5 class="card-title">Staffing & Talent Solutions</h5>
-                <p class="card-text">Building AI-Aware Teams That Lead With Purpose</p>
+                <h5 class="card-title">Talent Management</h5>
+                <p class="card-text">Exceptional People for an Intelligent Enterprise</p>
               </div>
             </div>
           </a>
